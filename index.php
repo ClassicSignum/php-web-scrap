@@ -79,14 +79,22 @@ foreach ($html->find('.row .col-md-3 a') as $element) {
                     $products[$index_3]['parts_number'] = $stock_data_part;
                 }
                 if ($index == 1) {
-
-                    $header = array_keys($products[0]);
+                    $new_row_keys['Part_Number'] = $products[0]['parts_number'];
+                    $new_row_keys['Brand'] = $products[0]['products'];
+                    $new_row_keys['Quantity'] = $products[0]['parts_details'];
+                    $new_row_keys['Description'] = $products[0]['parts_number'];
+                    $header = array_keys($new_row_keys);
                     fputcsv($output, $header);
                 }
 
                 foreach ($products as $row) {
-                    print_r($row);
-                    fputcsv($output, $row);
+                    $new_row['Part_Number'] = $row['parts_number'];
+                    $new_row['Brand'] = $row['products'];
+                    $new_row['Quantity'] = $row['parts_details'];
+                    $new_row['Description'] = $row['parts_number'];
+                    print_r($new_row);
+
+                    fputcsv($output, $new_row);
                 }
             }
         } //page iteration loop ends
