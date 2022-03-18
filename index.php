@@ -36,9 +36,15 @@ foreach ($html->find('.row .col-md-3 a') as $element) {
             $arr[1] = 1;
         }
         $product_index = 0;
+        // if($count==5){
+        //     $page_value = 4831;
+        // }
+        // else{
+        //     $page_value = 0;
 
+        // }
         for ($index = 0; $index <= $arr[1]; $index++) {
-
+            print_r("page=> ".$index);
             $new_url = str_replace("1", "", $url);
 
             $html3 = file_get_html($new_url . $index);
@@ -81,8 +87,8 @@ foreach ($html->find('.row .col-md-3 a') as $element) {
                 if ($index == 1) {
                     $new_row_keys['Part_Number'] = $products[0]['parts_number'];
                     $new_row_keys['Brand'] = $products[0]['products'];
-                    $new_row_keys['Quantity'] = $products[0]['parts_details'];
-                    $new_row_keys['Description'] = $products[0]['parts_number'];
+                    $new_row_keys['Quantity'] = $products[0]['stock'];
+                    $new_row_keys['Description'] = $products[0]['parts_details'];
                     $header = array_keys($new_row_keys);
                     fputcsv($output, $header);
                 }
@@ -90,9 +96,10 @@ foreach ($html->find('.row .col-md-3 a') as $element) {
                 foreach ($products as $row) {
                     $new_row['Part_Number'] = $row['parts_number'];
                     $new_row['Brand'] = $row['products'];
-                    $new_row['Quantity'] = $row['parts_details'];
-                    $new_row['Description'] = $row['parts_number'];
+                    $new_row['Quantity'] = $row['stock'];
+                    $new_row['Description'] = $row['parts_details'];
                     print_r($new_row);
+                    
 
                     fputcsv($output, $new_row);
                 }
